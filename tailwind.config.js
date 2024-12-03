@@ -7,6 +7,7 @@ module.exports = {
         'plt-primary': 'var(--main-dark)',
         'plt-secondary': 'var(--main-light)',
         'plt-accent': '#3b82f6',
+        'plt-white': '#ffffff',
       },
     },
   },

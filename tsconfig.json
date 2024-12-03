@@ -12,7 +12,10 @@
     //common js как с обычными пакетами с помощью import
     "esModuleInterop": true,
     //
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "src/*": ["src/*"]
+    }
   },
   "ts-node": {
     "compilerOptions": {

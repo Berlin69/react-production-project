@@ -1,8 +1,11 @@
 import webpack from 'webpack';
-import { BuildPaths } from './types/config';
+import { BuildPaths, BuildOptions } from './types/config';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-export function buildLoaders({ css }: BuildPaths): webpack.RuleSetRule[] {
+export function buildLoaders(
+  options: BuildOptions,
+  { css }: BuildPaths
+): webpack.RuleSetRule[] {
   // если не используется TS - необходимо подключить babel-loader
   const typescriptLoader = {
     test: /\.tsx?$/,
@@ -10,11 +13,37 @@ export function buildLoaders({ css }: BuildPaths): webpack.RuleSetRule[] {
     exclude: /node_modules/,
   };
 
+  const sassLoader = {
+    test: /\.s[ac]ss$/i,
+    use: [
+      options.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+      {
+        loader: 'css-loader',
+        options: {
+          loader: 'css-loader',
+          options: {
+            module: {
+              auto: (resPath: string) => Boolean(resPath.includes('.module.')),
+              localIdentName: options.isDev
+                ? '[path][name]__[local]'
+                : '[hash.base68:8]',
+            },
+          },
+        },
+      },
+      'sass-loader',
+    ],
+  };
+
   const cssLoader = {
     test: /\.(css|sass)$/i,
     include: css,
-    use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+    use: [
+      options.isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+      'css-loader',
+      'postcss-loader',
+    ],
   };
 
-  return [typescriptLoader, cssLoader];
+  return [typescriptLoader, cssLoader, sassLoader];
 }

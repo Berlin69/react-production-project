@@ -1,8 +1,7 @@
-import { Suspense, useContext } from 'react';
+import { Suspense } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import { AboutPageAsync } from './pages/about-page/about-page.async';
 import { MainPageAsync } from './pages/main-page/main-page.async';
-import { Theme, ThemeContext } from './theme/theme-context';
 import { useTheme } from './theme/use-theme';
 
 const App = () => {
