@@ -1,10 +1,9 @@
 import { render } from 'react-dom';
-import { Counter } from './components/ui/counter';
 
-import './style/tailwind.css';
-import App from './App';
+import './app/style/tailwind.css';
+import App from './app/App';
 import { BrowserRouter } from 'react-router-dom';
-import ThemeProvider from './theme/theme-provider';
+import { ThemeProvider } from './app/providers/theme-provider';
 
 render(
   <BrowserRouter>
